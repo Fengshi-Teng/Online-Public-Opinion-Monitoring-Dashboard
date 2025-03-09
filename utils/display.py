@@ -1,3 +1,17 @@
+"""
+Visualization Module for Emotion Analysis
+=========================================
+Fengshi Teng, Mar8 2025
+
+This module provides functions for visualizing emotion analysis results 
+using a polar bar chart ("rose chart") and word clouds.
+
+Key functionalities:
+    - Displaying a 'rose chart' for emotion distribution.
+    - Generating word clouds from either text or frequency dictionaries.
+"""
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -108,6 +122,13 @@ from PIL import Image
 
 
 def generate_wordcloud_from_text(text: str):
+    """
+    Generates a word cloud image from a given text.
+    Parameters:
+        text (str): The input text used to generate the word cloud.
+    Returns:
+        PIL.Image.Image | None: A PIL Image of the word cloud, or None if input text is empty.
+    """
     # Make sure we have text
     if not text:
         return None
@@ -125,6 +146,21 @@ def generate_wordcloud_from_text(text: str):
     return wc.to_image()
 
 def generate_wordcloud_from_dict(freq_dict: dict):
+    """
+    Generates a word cloud image from a word frequency dictionary.
+
+    Parameters:
+        freq_dict (dict): A dictionary where keys are words and values are their frequencies.
+                          Example:
+                              {
+                                  "happy": 50,
+                                  "sad": 30,
+                                  "angry": 20
+                              }
+
+    Returns:
+        PIL.Image.Image | None: A PIL Image of the word cloud, or None if input dictionary is empty."
+    """
     # Make sure we have a dictionary
     if not freq_dict:
         return None
@@ -138,15 +174,3 @@ def generate_wordcloud_from_dict(freq_dict: dict):
     ).generate_from_frequencies(freq_dict)
     # 3) Convert to PIL image (or you can directly return 'wc' if you like)
     return wc.to_image()
-
-# test = {
-#     "joy": 20,
-#     "sadness": 30,
-#     "anger": 15,
-#     "fear": 10,
-#     "surprise": 15,
-#     "disgust": 10
-# }
-
-# display_rose_chart(test)
-

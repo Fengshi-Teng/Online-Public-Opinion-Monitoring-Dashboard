@@ -1,3 +1,17 @@
+"""
+Streamlit App - History Summary Page
+====================================
+Fengshi Teng, Mar 8 2025
+
+This module defines the "History Summaries" page for the Public Opinion Trend 
+Analysis Tool, allowing users to review past sentiment analysis results.
+
+Key Features:
+    - Displays stored sentiment summaries from previous queries.
+    - Allows users to click on a query to view its sentiment analysis.
+    - Shows a warning if no history is available.
+"""
+
 import streamlit as st
 from utils.display import generate_wordcloud_from_text, generate_wordcloud_from_dict
 def History_Summary_page():

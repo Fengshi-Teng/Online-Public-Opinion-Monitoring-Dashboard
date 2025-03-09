@@ -1,3 +1,16 @@
+"""
+Streamlit App - Data Resource Page
+==================================
+Fengshi Teng, Mar 8 2025
+
+This module defines the "Data Resource" page for the Streamlit-based public 
+opinion monitoring dashboard.
+
+Key Features:
+    - Displays stored queries and their corresponding Reddit raw data.
+    - Allows users to click on a query to view related Reddit discussion data.
+    - Shows a warning if no queries have been generated yet.
+"""
 import streamlit as st
 from utils.display import generate_wordcloud_from_text, generate_wordcloud_from_dict
 def Data_Resource_page():

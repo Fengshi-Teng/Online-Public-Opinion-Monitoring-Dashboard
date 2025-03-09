@@ -1,3 +1,17 @@
+"""
+analysis.py
+===========
+Fengshi Teng, Mar8 2025
+
+This module provides functions and classes for data analysis, including data
+cleaning, statistical computations, and visualization.
+
+Key functionalities:
+    - Data preprocessing and cleaning
+    - Statistical analysis and computations
+    - Visualization of analysis results
+"""
+
 import openai
 import os
 import json
@@ -12,6 +26,18 @@ client = openai.OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 #### Part1: AI assistant in data searching
 def input_summarize(input) -> str:
+    """
+    Extracts the most essential and minimal keywords from a given input text.
+
+    The function removes unnecessary words and retains only the core nouns and 
+    key phrases relevant to the topic.
+
+    Parameters:
+        input (str): The text input from which keywords should be extracted.
+
+    Returns:
+        str: A minimal set of keywords separated by spaces.
+    """
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
@@ -51,6 +77,19 @@ def input_summarize(input) -> str:
 
 
 def get_subreddit(keywords) -> str:
+    """
+    Determines the most suitable subreddit for a given keyword or phrase.
+
+    Parameters:
+        keywords (str): A keyword or short phrase representing the topic.
+
+    Returns:
+        str: The name of the most relevant subreddit (without 'r/').
+
+    Example:
+        >>> get_subreddit("iPhone")
+        "technology"
+    """
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
@@ -77,6 +116,13 @@ def get_subreddit(keywords) -> str:
 
 
 def summarize_post(post_url) -> str:
+    """
+    Summarizes the main topics, opinions, and emotions discussed in a Reddit post.
+    Parameters:
+        post_url (str): The URL of the Reddit post to be summarized.
+    Returns:
+        str: A summary of the main themes and opinions in the post (less than 100 words).
+    """
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
@@ -105,9 +151,17 @@ def summarize_post(post_url) -> str:
 
 #### Part2: AI analyist in people opinions and emotion
 def analyze_sentiment(topic, text_and_score) -> dict:
-    '''
-    TODO:
-    '''
+    """
+    Analyzes the sentiment of a given text and categorizes emotions with scores.
+    Parameters:
+        topic (str): The topic related to the analyzed text.
+        text_and_score (tuple[str, int]): A tuple containing:
+            - text (str): The text to analyze.
+            - score (int): The weight or importance of the text.
+    Returns:
+        dict: A dictionary with emotion scores (joy, sadness, anger, fear, surprise, disgust)
+              and key words that contributed to each emotion.
+    """
     text = text_and_score[0]
     socre = text_and_score[1]
     response = client.chat.completions.create(
@@ -149,9 +203,18 @@ def analyze_sentiment(topic, text_and_score) -> dict:
 
 
 def analyze_parallel(topic, texts, max_workers=MAX_WORKERS) -> dict:
-    '''
-    TODO:
-    '''
+    """
+    Runs sentiment analysis in parallel on a list of texts.
+    Parameters:
+        topic (str): The topic related to the texts.
+        texts (list[tuple[str, int]]): A list of (text, score) tuples.
+        max_workers (int, optional): The number of threads to use for parallel
+            execution. Defaults to 12.
+    Returns:
+        tuple[dict, dict]: 
+            - A dictionary containing cumulative emotion scores.
+            - A dictionary containing word frequencies from the analyzed texts.
+    """
     emotion_score = {
         "joy": 0,
         "sadness": 0,
@@ -177,9 +240,16 @@ def analyze_parallel(topic, texts, max_workers=MAX_WORKERS) -> dict:
 
 
 def summarize_sentiment(texts:list[str], summarize_detailed) -> str:
-    '''
-    TODO:
-    '''
+    """
+    Generates a structured summary of the overall sentiment in a collection of texts.
+    Parameters:
+        texts (list[str]): A list of texts containing various opinions and emotions.
+        summarize_detailed (int): Level of summary detail (1-10). 
+            - 1: Brief high-level summary.
+            - 10: In-depth analysis with examples and structure.
+    Returns:
+        str: A summary of emotional trends, including dominant sentiments, themes, and examples.
+    """
     response = client.chat.completions.create(
         model="gpt-4o",
         messages=[
@@ -208,6 +278,19 @@ def summarize_sentiment(texts:list[str], summarize_detailed) -> str:
 
 
 def analyze_data(post_list: list, summarize_detailed) -> list:
+    """
+    Performs a complete sentiment analysis pipeline on a set of Reddit posts.
+    Parameters:
+        post_list (list[list]): A list where each element represents a post:
+            - The first element is the post URL (str).
+            - The remaining elements are tuples (text, score).
+        summarize_detailed (int): The level of detail for sentiment summarization (1-10).
+    Returns:
+        tuple[dict, dict, str]:
+            - Emotion score distribution (joy, sadness, anger, fear, surprise, disgust).
+            - Word cloud dictionary with keyword frequencies.
+            - A structured sentiment summary of the analyzed texts.
+    """
     emotion_score = {
         "joy": 0,
         "sadness": 0,
@@ -233,15 +316,3 @@ def analyze_data(post_list: list, summarize_detailed) -> list:
             print(e)
             continue
     return emotion_score, word_cloud, summarize_sentiment(post_list, summarize_detailed)
-
-
-# posts = ['https://www.reddit.com/r/TikTokCringe/comments/1igeoz3/tiktoker_tries_to_show_love_to_homeless_person/', ('She just gave the tik toker a dose of her own medicine', 13336), ('“We’re trying to help you”… by waking her up and posting it on TikTok? \nGood one.', 5384), ('No telling how many times she has been woken up just to be annoyed or fucked with in some way. If they truly thought she needed help, there were other better ways to go about it.', 2475), ("I can't believe this went on for as long as it did after she licked her", 3970), ('You know what? Good for her. The homeless lady knew exactly what she was doing and played this perfectly.', 5316), ('That was pretty smart on the part of the homeless person. “Oh you can just come up and put hands on me? Try this!”', 1428), ('Hey touch rando people and be offended when they touch you back. Stay classy.', 750), ('“Why don’t you love yourself” was ice cold', 1103), ("people who do this bullshit don't see homeless people as people, but tools. It's poverty porn and I fucking hate it.", 170), ('Disturbs a homeless woman\n\nShe acts aggressively\n\nThe content creators:\n\n![gif](giphy|6nWhy3ulBL7GSCvKw6)', 1536), ('Homeless women are not dogs to befriend. A lot of times they’re hyper-vigilant because of how vulnerable they are, and SA and other violence against women happens all the time in homeless spaces. Walking up on her and trying to touch her was extremely insensitive and dangerous for everyone involved. Next time work with an established organization that knows more about their community than you do, and keep the cameras and social media clout chasing out of the equation. All they’re doing is making her mental state worse here.', 505), ('Please stop touching people without consent.', 571), ('I don\'t trust anyone to tell me the "truth on the streets" when they display such a lack of street smarts.\xa0 They\'re lucky this poor woman probably wasn\'t as crazy as she was acting, she could have just as easily been stabbed as she was licked.\xa0 A lack of respect on multiple levels.', 217), ("Wow not cool homeless person. You're supposed to lay there and be used as a tool.", 183), ('If you were trying to help her, why did it need to be filmed??? Ppl go through things and don’t want to be used for content! Isn’t it bad enough that she is homeless?? The Tik Toker got what she was looking for. She wasn’t being genuine. She was looking for clout.', 275), ('She hands out clothing and other items for houseless people in Portland in exchange for content/sharing their picture. I’ve seen her first hand approaching people in crisis to give them things so she can take videos or “portraits” of them to share on social media. She almost always is with Kevin Dahlgren who was convicted of theft, identity theft and official misconduct and was stealing from homeless services, even though he claims to “help” houseless people. People need to stop giving her any attention and they both need to crawl back into whatever hole they came out of.\n\nEdit: Source for Kevin https://www.oregonlive.com/crime/2025/01/kevin-dahlgren-prominent-critic-of-portland-homeless-services-admits-to-stealing-from-them.html', 335), ("# Oh, you don't like that either?\n\n![gif](giphy|J8FZIm9VoBU6Q)", 142), ('maybe just leave people alone, especially angry addicted homeless people you want to film for clout', 370)]
-# topic = summarize_post(posts[0])
-# print(analyze_parallel(topic, posts[1:]))
-# # print(analyze_parallel(topic, posts[1:]))
-# # print(analyze_data([posts]))
-# test = [['https://www.reddit.com/r/TikTokCringe/comments/1abx82t/shout_out_to_all_the_invisible_cameramen_of_tiktok/', ("I've seen that shirtless guy that fucks you video a couple of times and it's always the most excruciatingly unconformable shit in this planet, makes my skin crawl.", 1847), ('Stupid sexy Flanders!', 318), ('The squeak toy sound effect for the lizard had me in FITS', 616), ('His videos give me giggle fits. Every damn time.', 579), ("I'm fucking dying, this is hilarious.", 245), ('Love his channel, dude is hilarious. I think the funniest thing is the invisible cameramen he employs to do his invisible cameraman bits. It’s cameramen all the way down.', 229)], ['https://www.reddit.com/r/TikTokCringe/comments/1igeoz3/tiktoker_tries_to_show_love_to_homeless_person/', ('She just gave the tik toker a dose of her own medicine', 13341), ('“We’re trying to help you”… by waking her up and posting it on TikTok? \nGood one.', 5385), ('No telling how many times she has been woken up just to be annoyed or fucked with in some way. If they truly thought she needed help, there were other better ways to go about it.', 2477), ("I can't believe this went on for as long as it did after she licked her", 3970), ('You know what? Good for her. The homeless lady knew exactly what she was doing and played this perfectly.', 5327), ('That was pretty smart on the part of the homeless person. “Oh you can just come up and put hands on me? Try this!”', 1427), ('Hey touch rando people and be offended when they touch you back. Stay classy.', 748), ('“Why don’t you love yourself” was ice cold', 1107), ("people who do this bullshit don't see homeless people as people, but tools. It's poverty porn and I fucking hate it.", 171), ('Disturbs a homeless woman\n\nShe acts aggressively\n\nThe content creators:\n\n![gif](giphy|6nWhy3ulBL7GSCvKw6)', 1540), ('Homeless women are not dogs to befriend. A lot of times they’re hyper-vigilant because of how vulnerable they are, and SA and other violence against women happens all the time in homeless spaces. Walking up on her and trying to touch her was extremely insensitive and dangerous for everyone involved. Next time work with an established organization that knows more about their community than you do, and keep the cameras and social media clout chasing out of the equation. All they’re doing is making her mental state worse here.', 496), ('Please stop touching people without consent.', 578), ('I don\'t trust anyone to tell me the "truth on the streets" when they display such a lack of street smarts.\xa0 They\'re lucky this poor woman probably wasn\'t as crazy as she was acting, she could have just as easily been stabbed as she was licked.\xa0 A lack of respect on multiple levels.', 221), ('This is awesome lmfao.\n\nShe scared the fuck out of those streamer dipshits', 104), ("Wow not cool homeless person. You're supposed to lay there and be used as a tool.", 186), ('If you were trying to help her, why did it need to be filmed??? Ppl go through things and don’t want to be used for content! Isn’t it bad enough that she is homeless?? The Tik Toker got what she was looking for. She wasn’t being genuine. She was looking for clout.', 275), ('She hands out clothing and other items for houseless people in Portland in exchange for content/sharing their picture. I’ve seen her first hand approaching people in crisis to give them things so she can take videos or “portraits” of them to share on social media. She almost always is with Kevin Dahlgren who was convicted of theft, identity theft and official misconduct and was stealing from homeless services, even though he claims to “help” houseless people. People need to stop giving her any attention and they both need to crawl back into whatever hole they came out of.\n\nEdit: Source for Kevin https://www.oregonlive.com/crime/2025/01/kevin-dahlgren-prominent-critic-of-portland-homeless-services-admits-to-stealing-from-them.html', 334), ("# Oh, you don't like that either?\n\n![gif](giphy|J8FZIm9VoBU6Q)", 142), ('maybe just leave people alone, especially angry addicted homeless people you want to film for clout', 366)]]
-# print(analyze_data(test))
-
-# end_time = time.time()
-# print(end_time-start_time)
