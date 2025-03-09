@@ -1,0 +1,23 @@
+/* utils/style.css */
+
+/* 1) Dark sidebar */
+[data-testid="stSidebar"] {
+    background-color: #2C2F33; /* a dark gray */
+}
+
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] .element-container,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] h4,
+[data-testid="stSidebar"] h5,
+[data-testid="stSidebar"] h6,
+[data-testid="stSidebar"] .stMarkdown {
+    color: #ffffff !important; /* text to white */
+}
+
+/* 2) Make main content area white */
+.stApp {
+    background-color: #FFFFFF; /* pure white */
+}
