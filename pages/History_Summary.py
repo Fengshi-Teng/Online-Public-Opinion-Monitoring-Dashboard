@@ -1,7 +1,7 @@
 import streamlit as st
 from utils.display import generate_wordcloud_from_text, generate_wordcloud_from_dict
-def Data_Resource_page():
-    st.title("Data_Resource")
+def History_Summary_page():
+    st.title("History Summaries")
 
     # Check if we have any stored queries
     if "past_queries" not in st.session_state or len(st.session_state["past_queries"]) == 0:
@@ -11,8 +11,12 @@ def Data_Resource_page():
     for i, item in enumerate(st.session_state["past_queries"]):
         query_str = item["query"]
         if st.button(f"Query #{i+1}: {query_str}"):
-            st.subheader(f"Data Resources for '{query_str}'")
-            st.write(item["reddit_raw_data"])
+            if not "summarize" in item:
+                st.write("No records.")
+                continue
+            st.subheader(f"Public Opinion Trend Summary for '{query_str}'")
+            st.write(item["summarize"])
+            st.write(item["rose_chart"])
         st.divider()  # just a horizontal line to separate sections
 
-Data_Resource_page()
+History_Summary_page()
