@@ -18,7 +18,8 @@ Instead of manually browsing through large amounts of posts and comments, this t
 st.write("### 🔧 Technology Stack")
 st.write("""
 - **📊 Data Source:**  
-  - Currently, the app collects **publicly available discussions from Reddit**.
+  - Currently, the app collects **publicly available discussions from Reddit**.  
+    *(As a demo, it's enough, but in the future, it can be expanded to wider sources.)*
   - Future updates may integrate **other public opinion data APIs**.
 
 - **🧠 AI-powered Analysis:**  
