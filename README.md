@@ -36,35 +36,35 @@ streamlit run Query.py
 ```
 ## Features & Functionality
 ### **1️ Query & Configuration**
-	•	Input your topic of interest
-	•	Customize: Search range, comment depth, filtering criteria
-	•	Receive an estimated search time
-	•	Click "Start Analysis"
+- Input your topic of interest
+- Customize: Search range, comment depth, filtering criteria
+- Receive an estimated search time
+- Click "Start Analysis"
 ![Query Configuration](images/query_configuration.png)
 
 ### **2️ Results (Summarization & Rose Chart)**
-	•	AI-generated summary of discussions
-	•	Sentiment distribution displayed in a Rose Chart
+- AI-generated summary of discussions
+- Sentiment distribution displayed in a Rose Chart
 ![Summarization & Rose Chart](images/query_summary.png)
 ![Summarization & Rose Chart](images/query_rose_chart.png)
 
 ### **3️ Word Cloud Visualization**
-	•	Check word clouds of queried results
-	•	Compare raw text vs. sentiment-filtered word clouds
+- Check word clouds of queried results
+- Compare raw text vs. sentiment-filtered word clouds
     You will notice that sentiment-filtered word clouds reveal more emotional tendencies and opinions, whereas those generated from raw text remain more neutral.
 ![Word Cloud](images/word_cloud1.png)
 ![Word Cloud](images/word_cloud2.png)
 
 ### **4️ Data Source View**
-	•	Inspect the actual Reddit data sources behind the analysis
+- Inspect the actual Reddit data sources behind the analysis
 ![Data Source](images/data_source.png)
 
 ### **5️ History Summaries**
-	•	View past queries and corresponding sentiment analyses
+- View past queries and corresponding sentiment analyses
 ![History Summaries](images/history_summaries.png)
 
 ## Project Structure
-
+```
 📁 Online-Public-Opinion-Monitoring-Dashboard
 │── 📂 pages                # Streamlit page modules
 │   ├── About.py            # About section with project details
@@ -80,14 +80,14 @@ streamlit run Query.py
 │── Query.py                # Main entry point for the app
 │── requirements.txt        # Required dependencies
 │── README.md               # Documentation
-
+```
 ## Future Improvements
-	•	💨 Speed Optimization: Implementing caching & parallel processing
-	•	🌍 Expanding Data Sources: Adding Twitter, news, or other sources
-	•	🧠 AI-Powered Agents (LangChain): Using LangChain & OpenAI Agents for:
-	•	Conversational Querying (Chat with data)
-	•	Dynamic Topic Discovery
-	•	More advanced NLP-based filtering
+- 💨 Speed Optimization: Implementing caching & parallel processing
+- 🌍 Expanding Data Sources: Adding Twitter, news, or other sources
+- 🧠 AI-Powered Agents (LangChain): Using LangChain & OpenAI Agents for:
+- Conversational Querying (Chat with data)
+- Dynamic Topic Discovery
+- More advanced NLP-based filtering
 
 ## Feedback & Contributions
 If you have any suggestions, feel free to open an issue or contribute to the repository!
