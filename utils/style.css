@@ -2,9 +2,10 @@
 
 /* 1) Dark sidebar */
 [data-testid="stSidebar"] {
-    background-color: #2C2F33; /* a dark gray */
+    background-color: #2C2F33; /* Dark gray background */
 }
 
+/* Set text color to white in the sidebar */
 [data-testid="stSidebar"] span,
 [data-testid="stSidebar"] .element-container,
 [data-testid="stSidebar"] label,
@@ -14,10 +15,45 @@
 [data-testid="stSidebar"] h5,
 [data-testid="stSidebar"] h6,
 [data-testid="stSidebar"] .stMarkdown {
-    color: #ffffff !important; /* text to white */
+    color: #ffffff !important; /* White text */
 }
 
-/* 2) Make main content area white */
+/* 2) Default light mode: white background for the main content */
 .stApp {
-    background-color: #FFFFFF; /* pure white */
+    background-color: #FFFFFF; /* Pure white background */
+    color: #333333; /* Dark gray text */
+}
+
+/* 3) Dark mode support */
+@media (prefers-color-scheme: dark) {
+    /* Dark mode: Set the main content area to dark */
+    .stApp {
+        background-color: #181818 !important; /* Black background */
+        color: #ffffff !important; /* White text */
+    }
+
+    /* Adapt input fields, buttons, and alerts for dark mode */
+    input, textarea, select {
+        background-color: #222 !important;
+        color: white !important;
+        border: 1px solid #555 !important;
+    }
+
+    button {
+        background-color: #3b3b3b !important;
+        color: white !important;
+        border-radius: 8px !important;
+        padding: 8px 16px !important;
+    }
+
+    .stAlert {
+        background-color: #333 !important;
+        color: white !important;
+        border-radius: 5px !important;
+    }
+}
+
+/* 4) Ensure text elements adapt to dark mode */
+.stMarkdown, .stText, .stTitle, .stHeader {
+    color: inherit !important;
 }
