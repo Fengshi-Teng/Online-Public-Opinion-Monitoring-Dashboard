@@ -16,10 +16,10 @@ Currently, the app **collects publicly available discussions from Reddit**.
 
 ## How to Use the App  
 
-### ** Method 1: Use the Deployed Version**  
+### **Method 1: Use the Deployed Version**  
 **Visit the live app here**:[Online Public Opinion Monitoring Dashboard](https://online-public-opinion-monitoring-dashboard-tengfengshi.streamlit.app)
 
-### ** Method 2: Run Locally**  
+### **Method 2: Run Locally**  
 
 #### **1 Clone the repository**  
 ```bash
