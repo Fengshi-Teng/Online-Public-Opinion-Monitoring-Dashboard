@@ -21,7 +21,7 @@ Currently, the app **collects publicly available discussions from Reddit**.
 
 ### ** Method 2: Run Locally**  
 
-#### **1️ Clone the repository**  
+#### **1 Clone the repository**  
 ```bash
 git clone https://github.com/Fengshi-Teng/Online-Public-Opinion-Monitoring-Dashboard.git
 cd path to Online-Public-Opinion-Monitoring-Dashboard
@@ -30,36 +30,36 @@ cd path to Online-Public-Opinion-Monitoring-Dashboard
 ```bash
 pip install -r requirements.txt
 ```
-#### **3️ Run the Streamlit App**
+#### **3 Run the Streamlit App**
 ```bash
 streamlit run Query.py
 ```
 ## Features & Functionality
-### **1️ Query & Configuration**
+### **1 Query & Configuration**
 - Input your topic of interest
 - Customize: Search range, comment depth, filtering criteria
 - Receive an estimated search time
 - Click "Start Analysis"
 ![Query Configuration](images/query_configuration.png)
 
-### **2️ Results (Summarization & Rose Chart)**
+### **2 Results (Summarization & Rose Chart)**
 - AI-generated summary of discussions
 - Sentiment distribution displayed in a Rose Chart
 ![Summarization & Rose Chart](images/query_summary.png)
 ![Summarization & Rose Chart](images/query_rose_chart.png)
 
-### **3️ Word Cloud Visualization**
+### **3 Word Cloud Visualization**
 - Check word clouds of queried results
 - Compare raw text vs. sentiment-filtered word clouds
     You will notice that sentiment-filtered word clouds reveal more emotional tendencies and opinions, whereas those generated from raw text remain more neutral.
 ![Word Cloud](images/word_cloud1.png)
 ![Word Cloud](images/word_cloud2.png)
 
-### **4️ Data Source View**
+### **4 Data Source View**
 - Inspect the actual Reddit data sources behind the analysis
 ![Data Source](images/data_source.png)
 
-### **5️ History Summaries**
+### **5 History Summaries**
 - View past queries and corresponding sentiment analyses
 ![History Summaries](images/history_summaries.png)
 
