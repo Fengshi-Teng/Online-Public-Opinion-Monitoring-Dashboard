@@ -14,7 +14,7 @@ Key Features:
 import streamlit as st
 from utils.display import generate_wordcloud_from_text, generate_wordcloud_from_dict
 def Data_Resource_page():
-    st.title("Data_Resource")
+    st.title("Data Resource")
 
     # Check if we have any stored queries
     if "past_queries" not in st.session_state or len(st.session_state["past_queries"]) == 0:
