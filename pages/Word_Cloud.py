@@ -13,10 +13,10 @@ def wordcloud_page():
         if st.button(f"Query #{i+1}: {query_str}"):
             st.subheader(f"Word Cloud for '{query_str}' from Raw Text")
             data = "".join(["".join([comment[0] for comment in comment_list[1:]]) for comment_list in item["comments_data"]])
-            st.image(generate_wordcloud_from_text(data), caption=f"Word Cloud for '{query_str}'", use_container_width=True)
+            st.image(generate_wordcloud_from_text(data), caption=f"Word Cloud for '{query_str}'", width = 500)
             st.subheader(f"Word Cloud for '{query_str}' after Emotional Analysis")
             data = item["word_cloud"]
-            st.image(generate_wordcloud_from_dict(data), caption=f"Word Cloud for '{query_str}'", use_container_width=True)
+            st.image(generate_wordcloud_from_dict(data), caption=f"Word Cloud for '{query_str}'", width = 500)
 
         st.divider()  # just a horizontal line to separate sections
 
